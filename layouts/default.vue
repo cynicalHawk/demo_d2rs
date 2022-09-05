@@ -2,7 +2,7 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
-      clipped=true
+      clipped
       fixed
       app
     >
@@ -21,7 +21,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
-      clipped-left=true
+      clipped-left
       fixed
       app
     >
@@ -34,7 +34,6 @@
       </v-container>
     </v-main>
     <v-footer
-      :absolute="fixed"
       app
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
