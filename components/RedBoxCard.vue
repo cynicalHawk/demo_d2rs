@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mx-auto text-left" max-width="500">
+    <v-card class="mx-auto text-left d-flex flex-column" max-width="500">
         <v-img
             height="200px"
             :src=img
@@ -11,6 +11,7 @@
         </v-card-subtitle>
         <v-card-subtitle v-if="!isComplete">Not Complete</v-card-subtitle>
         <v-card-text class="text-left">{{description}}</v-card-text>
+        <v-spacer></v-spacer>
         <v-card-actions>
             <v-btn
                 v-if="!active"

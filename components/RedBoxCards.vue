@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-btn class="my-4" color="red" @click="reset"> Reset </v-btn>
-    <h1>Active Symbols</h1>
+    <v-btn class="mt-2 mb-6" color="red" @click="reset"> Reset </v-btn>
+    <h2>Active Symbols</h2>
     <v-layout row wrap justify-space-between class="my-4 py-4">
       <RedBoxCard
         class="pa-6 ma-2"
@@ -15,7 +15,7 @@
         @deactivate="deactivate"
       />
     </v-layout>
-    <h1 class="my-4 py-4">All Symbols</h1>
+    <h2 class="my-4 py-4">All Symbols</h2>
     <v-layout row wrap justify-space-between class="yx-4 py-4">
       <RedBoxCard
         class="pa-6 ma-2"
@@ -36,7 +36,7 @@
 import RedBoxCard from "./RedBoxCard.vue";
 
 export default {
-  // props: ['data'],
+  props: ['symbols'],
   data() {
     return {
       activeSymbols: [],
@@ -81,13 +81,13 @@ export default {
         this.activeSymbols = JSON.parse(localStorage.getItem("activeSymbols"));
         this.allSymbols = JSON.parse(localStorage.getItem("allSymbols"));
       } else {
-        this.allSymbols = this.KF_DEFAULT_SYMBOLS;
+        this.allSymbols = this.symbols;
       }
     },
     reset() {
       this.activeSymbols = [];
       this.allSymbols = [];
-      this.allSymbols = this.KF_DEFAULT_SYMBOLS;
+      this.allSymbols = this.symbols;
       this.saveToLocalStorage();
     },
   },
