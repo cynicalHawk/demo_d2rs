@@ -2,16 +2,15 @@
   <v-row>
     <v-col class="text-center">
       <h1 class="text-center">Kings Fall</h1>
-      <RedBoxCards :symbols="KF_DEFAULT_SYMBOLS" localStoragePrefix="KF"/>
+      <RedBoxCards :symbols="KF_DEFAULT_SYMBOLS" localStoragePrefix="KF" />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import RedBoxCards from "../components/RedBoxCards.vue";
-import RedBoxCard from "../components/RedBoxCard.vue";
 export default {
-  components: { RedBoxCards, RedBoxCard },
+  components: { RedBoxCards },
   computed: {
     KF_DEFAULT_SYMBOLS() {
       return [
