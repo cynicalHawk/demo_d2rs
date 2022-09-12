@@ -11,8 +11,10 @@
         :location="k.location"
         :img="k.img"
         :description="k.description"
+        :isComplete="k.isComplete"
         :active="true"
         @deactivate="deactivate"
+        @toggleComplete="toggleComplete"
       />
     </v-layout>
     <h2 class="my-4 py-4">All Symbols</h2>
@@ -36,7 +38,7 @@
 import RedBoxCard from "./RedBoxCard.vue";
 
 export default {
-  props: ['symbols'],
+  props: ['symbols', 'localStoragePrefix'],
   data() {
     return {
       activeSymbols: [],
@@ -72,14 +74,14 @@ export default {
       this.saveToLocalStorage();
     },
     saveToLocalStorage() {
-      localStorage.setItem("hasStoredData", true);
-      localStorage.setItem("activeSymbols", JSON.stringify(this.activeSymbols));
-      localStorage.setItem("allSymbols", JSON.stringify(this.allSymbols));
+      localStorage.setItem(this.LSHasStoredData, true);
+      localStorage.setItem(this.LSActiveSymbols, JSON.stringify(this.activeSymbols));
+      localStorage.setItem(this.LSAllSymbols, JSON.stringify(this.allSymbols));
     },
     retrieveFromLocalStorage() {
-      if (localStorage.getItem("hasStoredData")) {
-        this.activeSymbols = JSON.parse(localStorage.getItem("activeSymbols"));
-        this.allSymbols = JSON.parse(localStorage.getItem("allSymbols"));
+      if (localStorage.getItem(this.LSHasStoredData)) {
+        this.activeSymbols = JSON.parse(localStorage.getItem(this.LSActiveSymbols));
+        this.allSymbols = JSON.parse(localStorage.getItem(this.LSAllSymbols));
       } else {
         this.allSymbols = this.symbols;
       }
@@ -90,77 +92,28 @@ export default {
       this.allSymbols = this.symbols;
       this.saveToLocalStorage();
     },
+    getActiveIndexById(id) {
+      var item = this.activeSymbols.find((element) => element.id == id);
+      return this.activeSymbols.indexOf(item);
+    },
+    toggleComplete(id) {
+      var currIsComplete = this.activeSymbols[this.getActiveIndexById(id)].isComplete;
+      this.activeSymbols[this.getActiveIndexById(id)].isComplete = !currIsComplete;
+      this.saveToLocalStorage();
+    },
   },
   mounted() {
     this.retrieveFromLocalStorage();
   },
   computed: {
-    KF_DEFAULT_SYMBOLS() {
-      return [
-        {
-          id: 1,
-          location: "Opening Encounter",
-          img: "kf_symbols/kf_symbol1.jpg",
-          description:
-            "After completing the opening encounter and going through the portal, jump on the first swinging lamp and turn around. The circle is directly below the platform below you",
-        },
-        {
-          id: 2,
-          location: "Opening Encounter",
-          img: "kf_symbols/kf_symbol2.jpg",
-          description:
-            "This circle can be found on the wall directly behind the first secret chest. After riding the tombship across the chasm (second part of the jumping puzzle), jump off early and head left up the wall, then head through a hole in the wall to find the chest and circle",
-        },
-        {
-          id: 3,
-          location: "Totems Encounter",
-          img: "kf_symbols/kf_symbol3.jpg",
-          description:
-            "After completing the totems encounter, head into the left side room. The circle is on the wall behind the balcony where the knights spawn, towards the right side",
-        },
-        {
-          id: 4,
-          location: "Warpriest encounter",
-          img: "kf_symbols/kf_symbol4.jpg",
-          description:
-            "after defeating the warpriest, this circle can be found on the wall by the right side balcony",
-        },
-        {
-          id: 5,
-          location: "Warpriest encounter",
-          img: "kf_symbols/kf_symbol5.jpg",
-          description:
-            "After making your way through Golgoroth's Maze, the next circle is on the inside walls of the final hole, directly before the door to Golgoroth",
-        },
-        {
-          id: 6,
-          location: "Golgoroth encounter",
-          img: "kf_symbols/kf_symbol6.jpg",
-          description:
-            "After defeating Golgoroth, head into the room on the lower floor, directly behind where the first orb drops. The circle is on the wall.",
-        },
-        {
-          id: 7,
-          location: "Golgoroth encounter",
-          img: "kf_symbols/kf_symbol7.jpg",
-          description:
-            "Make your way through the second jumping puzzle and pull out your ghost to reveal hidden platforms. Across these is a room where you will find the second secret chest. The circle is directly beside it",
-        },
-        {
-          id: 8,
-          location: "Golgoroth encounter",
-          img: "kf_symbols/kf_symbol8.jpg",
-          description:
-            "After completing the jumping puzzle, the next circle can be found on the ceiling directly in front of the door to the door at the end",
-        },
-        {
-          id: 9,
-          location: "Golgoroth encounter",
-          img: "kf_symbols/kf_symbol9.jpg",
-          description:
-            "After entering the final arena, turn around and look up. The symbol is on the wall above the door you entered through",
-        },
-      ];
+    LSHasStoredData() {
+      return this.localStoragePrefix + "|hasStoredData";
+    },
+    LSActiveSymbols() {
+      return this.localStoragePrefix + "|activeSymbols";
+    },
+    LSAllSymbols() {
+      return this.localStoragePrefix + "|allSymbols";
     },
   },
 };

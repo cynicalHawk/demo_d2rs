@@ -1,7 +1,6 @@
 <template>
     <v-card class="mx-auto text-left d-flex flex-column" max-width="500">
         <v-img
-            height="200px"
             :src=img
         ></v-img>
         <v-card-title>{{location}}</v-card-title>
@@ -30,7 +29,7 @@
             <v-btn
                 color="primary"
                 :disabled="!active"
-                @click="clickComplete()"
+                @click="clickComplete(id)"
             >
                 Toggle Complete
             </v-btn>
@@ -40,12 +39,7 @@
 
 <script>
 export default {
-    props: ['id', 'location', 'img', 'description', 'active'],
-    data: function() {
-        return {
-            isComplete: false,
-        }
-    },
+    props: ['id', 'location', 'img', 'description', 'active', 'isComplete'],
     methods: {
         clickActivate(id) { 
             this.$emit('activate', id);
@@ -53,8 +47,8 @@ export default {
         clickDeactivate(id) { 
             this.$emit('deactivate', id);
         },
-        clickComplete() { 
-            this.isComplete = !this.isComplete
+        clickComplete(id) { 
+            this.$emit('toggleComplete', id);
         }
     }
 }

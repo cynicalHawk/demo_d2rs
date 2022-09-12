@@ -22,8 +22,8 @@ For detailed explanation on how things work, check out the [documentation](https
 ## To do
 
  - [x] Add functionality to reset button
- - [ ] Add completeness to localStorage save
- - [ ] Add ability to change localStorage name for vod and kf
+ - [x] Add completeness to localStorage save
+ - [x] Add ability to change localStorage name for vod and kf
 
 ## Special Directories
 
