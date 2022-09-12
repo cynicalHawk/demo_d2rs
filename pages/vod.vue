@@ -2,6 +2,7 @@
   <v-row>
     <v-col class="text-center">
       <h1 class="text-center">Vow of the Disciple</h1>
+      <Instructions />
       <RedBoxCards :symbols="VOD_DEFAULT_SYMBOLS" localStoragePrefix="VOD" />
     </v-col>
   </v-row>
@@ -9,9 +10,10 @@
 
 <script>
 import RedBoxCards from "../components/RedBoxCards.vue";
+import Instructions from "../components/Instructions.vue";
 export default {
   name: "vow-of-the-disciple",
-  components: { RedBoxCards },
+  components: { RedBoxCards, Instructions },
   computed: {
     VOD_DEFAULT_SYMBOLS() {
       return [
